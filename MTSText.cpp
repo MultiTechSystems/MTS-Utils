@@ -46,3 +46,15 @@ std::string Text::readString(char* index, int length)
     index += length;
     return result;
 }
+
+std::string Text::toUpper(const std::string str)
+{
+    std::string ret = str;
+
+    for (int i = 0; i < ret.size(); i++)
+    {
+        ret[i] = toupper(ret[i]);
+    }
+
+    return ret;
+}

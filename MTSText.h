@@ -48,6 +48,8 @@ public:
     
     static std::string readString(char* index, int length);
 
+    static std::string toUpper(const std::string str);
+
 private:
     // Safety for class with only static methods
     Text();
