@@ -51,7 +51,7 @@ std::string Text::toUpper(const std::string str)
 {
     std::string ret = str;
 
-    for (int i = 0; i < ret.size(); i++)
+    for (unsigned int i = 0; i < ret.size(); i++)
     {
         ret[i] = toupper(ret[i]);
     }
