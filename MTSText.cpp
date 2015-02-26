@@ -1,4 +1,5 @@
 #include "MTSText.h"
+#include "ctype.h"
 
 using namespace mts;
 
