@@ -20,8 +20,10 @@ int MTSCircularBuffer::read(char* data, int length)
         if (readIndex == bufferSize) {
             readIndex = 0;
         }
+        __disable_irq();
         data[i++] = buffer[readIndex++];
         bytes--;
+        __enable_irq();
         checkThreshold();
     }
     return i;
@@ -35,8 +37,10 @@ int MTSCircularBuffer::read(char& data)
     if (readIndex == bufferSize) {
         readIndex = 0;
     }
+    __disable_irq();
     data = buffer[readIndex++];
     bytes--;
+    __enable_irq();
     checkThreshold();
     return 1;
 }
@@ -48,8 +52,10 @@ int MTSCircularBuffer::write(const char* data, int length)
         if(writeIndex == bufferSize) {
             writeIndex = 0;
         }
+        __disable_irq();
         buffer[writeIndex++] = data[i++];
         bytes++;
+        __enable_irq();
         checkThreshold();
     }
     return i;
@@ -63,8 +69,10 @@ int MTSCircularBuffer::write(char data)
     if(writeIndex == bufferSize) {
         writeIndex = 0;
     }
+    __disable_irq();
     buffer[writeIndex++] = data;
     bytes++;
+    __enable_irq();
     checkThreshold();
     return 1;
 }
