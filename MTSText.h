@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 #include <stddef.h>
+#include <stdint.h>
+#include <cstdio>
+#include <cstring>
 
 namespace mts
 {
@@ -49,6 +52,8 @@ public:
     static std::string readString(char* index, int length);
 
     static std::string toUpper(const std::string str);
+
+    static std::string bin2hexString(const uint8_t* data, const uint32_t len, const char* delim = "", bool leadingZeros = false);
 
 private:
     // Safety for class with only static methods
