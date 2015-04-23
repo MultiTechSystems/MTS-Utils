@@ -60,6 +60,10 @@ std::string Text::toUpper(const std::string str)
     return ret;
 }
 
+std::string Text::bin2hexString(const std::vector<uint8_t>& data, const char* delim, bool leadingZeros) {
+    return bin2hexString(data.data(), data.size(), delim, leadingZeros);
+}
+
 std::string Text::bin2hexString(const uint8_t* data, const uint32_t len, const char* delim, bool leadingZeros) {
     std::string str;
     char buf[32];
