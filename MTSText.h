@@ -57,6 +57,12 @@ public:
 
     static std::string bin2hexString(const uint8_t* data, const uint32_t len, const char* delim = "", bool leadingZeros = false);
 
+    static void ltrim(std::string& str, const char* args);
+
+    static void rtrim(std::string& str, const char* args);
+
+    static void trim(std::string& str, const char* args);
+
 private:
     // Safety for class with only static methods
     Text();

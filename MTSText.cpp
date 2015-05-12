@@ -80,3 +80,20 @@ std::string Text::bin2hexString(const uint8_t* data, const uint32_t len, const c
 
     return str;
 }
+
+void Text::ltrim(std::string& str, const char* args) {
+    size_t startpos = str.find_first_not_of(args);
+    if (startpos != std::string::npos)
+        str = str.substr(startpos);
+}
+
+void Text::rtrim(std::string& str, const char* args) {
+    size_t endpos = str.find_last_not_of(args);
+    if (endpos != std::string::npos)
+        str = str.substr(0, endpos + 1);
+}
+
+void Text::trim(std::string& str, const char* args) {
+    ltrim(str, args);
+    rtrim(str, args);
+}
