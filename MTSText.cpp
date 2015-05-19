@@ -1,5 +1,6 @@
 #include "MTSText.h"
 #include "ctype.h"
+#include <math.h>
 
 using namespace mts;
 
@@ -58,6 +59,12 @@ std::string Text::toUpper(const std::string str)
     }
 
     return ret;
+}
+
+std::string Text::float2String(double val, int precision) {
+    char buff[100];
+    sprintf(buff, "%d.%d", (int)val, (int)((val - floor(val)) * (int)pow(10.0, precision)));
+    return std::string(buff);
 }
 
 std::string Text::bin2hexString(const std::vector<uint8_t>& data, const char* delim, bool leadingZeros) {

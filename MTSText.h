@@ -53,6 +53,8 @@ public:
 
     static std::string toUpper(const std::string str);
 
+    std::string float2String(double val, int precision);
+
     static std::string bin2hexString(const std::vector<uint8_t>& data, const char* delim = "", bool leadingZeros = false);
 
     static std::string bin2hexString(const uint8_t* data, const uint32_t len, const char* delim = "", bool leadingZeros = false);
