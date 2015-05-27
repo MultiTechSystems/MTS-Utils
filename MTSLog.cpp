@@ -14,7 +14,7 @@ const char* MTSLog::INFO_LABEL = "INFO";
 const char* MTSLog::DEBUG_LABEL = "DEBUG";
 const char* MTSLog::TRACE_LABEL = "TRACE";
 
-void MTSLog::printMessage(MTSLog::logLevel level, const char* format, ...) {
+void MTSLog::printMessage(int level, const char* format, ...) {
     if (printable(level)) {
         va_list argptr;
         va_start(argptr, format);
@@ -23,11 +23,16 @@ void MTSLog::printMessage(MTSLog::logLevel level, const char* format, ...) {
     }
 }
 
-bool MTSLog::printable(MTSLog::logLevel level) {
+bool MTSLog::printable(int level) {
     return level <= currentLevel;
 }
 
-void MTSLog::setLogLevel(MTSLog::logLevel level) {
+void MTSLog::setLogLevel(int level) {
+    if (level < NONE_LEVEL)
+        currentLevel = NONE_LEVEL;
+    else if (level > TRACE_LEVEL)
+        currentLevel = TRACE_LEVEL;
+    else
     currentLevel = level;
 }
 

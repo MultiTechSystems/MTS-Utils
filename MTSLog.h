@@ -49,17 +49,17 @@ public:
 
     /** Print log message.
      */
-    static void printMessage(MTSLog::logLevel level, const char* format, ...);
+    static void printMessage(int level, const char* format, ...);
 
     /** Determine if the given level is currently printable.
      */
-    static bool printable(MTSLog::logLevel level);
+    static bool printable(int level);
 
     /** Set log level
      * Messages with lower priority than the current level will not be printed.
      * If the level is set to NONE, no messages will print.
      */
-    static void setLogLevel(MTSLog::logLevel level);
+    static void setLogLevel(int level);
 
     /** Get the current log level.
      */
