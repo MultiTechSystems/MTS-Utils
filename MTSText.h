@@ -5,8 +5,8 @@
 #include <vector>
 #include <stddef.h>
 #include <stdint.h>
-#include <cstdio>
-#include <cstring>
+#include <stdio.h>
+#include <string.h>
 
 namespace mts
 {
