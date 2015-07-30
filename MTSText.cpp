@@ -4,6 +4,8 @@
 
 using namespace mts;
 
+std::string BASE64CODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
 std::string Text::getLine(const std::string& source, const size_t& start, size_t& cursor) {
     char delimiters[2];
     delimiters[0] = '\n';
@@ -92,6 +94,92 @@ std::string Text::bin2hexString(const uint8_t* data, const uint32_t len, const c
 
     return str;
 }
+
+std::string Text::bin2base64(const uint8_t* data, size_t size) {
+    std::string out;
+    uint8_t b;
+
+    for (size_t i = 0; i < size; i+=3) {
+        b = (data[i] & 0xfc) >> 2;
+        out.push_back(BASE64CODE[b]);
+        b = (data[i] & 0x03) << 4;
+        if (i+1 < size) {
+            b |= (data[i+1] & 0xf0) >> 4;
+            out.push_back(BASE64CODE[b]);
+            b = (data[i + 1] & 0x0f) << 2;
+            if (i+2 < size) {
+                b |= (data[i+2] & 0xc0) >> 6;
+                out.push_back(BASE64CODE[b]);
+                b = data[i+2] & 0x3f;
+                out.push_back(BASE64CODE[b]);
+            } else {
+                out.push_back(BASE64CODE[b]);
+                out.append("=");
+            }
+        } else {
+            out.push_back(BASE64CODE[b]);
+            out.append("==");
+        }
+    }
+
+    return out;
+}
+
+std::string Text::bin2base64(const std::vector<uint8_t>& data) {
+    std::string out;
+    uint8_t b;
+
+    for (size_t i = 0; i < data.size(); i+=3) {
+        b = (data[i] & 0xfc) >> 2;
+        out.push_back(BASE64CODE[b]);
+        b = (data[i] & 0x03) << 4;
+        if (i+1 < data.size()) {
+            b |= (data[i+1] & 0xf0) >> 4;
+            out.push_back(BASE64CODE[b]);
+            b = (data[i + 1] & 0x0f) << 2;
+            if (i+2 < data.size()) {
+                b |= (data[i+2] & 0xc0) >> 6;
+                out.push_back(BASE64CODE[b]);
+                b = data[i+2] & 0x3f;
+                out.push_back(BASE64CODE[b]);
+            } else {
+                out.push_back(BASE64CODE[b]);
+                out.append("=");
+            }
+        } else {
+            out.push_back(BASE64CODE[b]);
+            out.append("==");
+        }
+    }
+
+    return out;
+}
+
+bool Text::base642bin(const std::string in, std::vector<uint8_t>& out) {
+
+    if (in.find_first_not_of(BASE64CODE) != std::string::npos) {
+        return false;
+    }
+
+    if (in.size() % 4 != 0) {
+        return false;
+    }
+
+    uint8_t a,b,c,d;
+
+    for (uint32_t i = 0; i < in.size(); i+=4) {
+        a = BASE64CODE.find(in[i]);
+        b = BASE64CODE.find(in[i+1]);
+        c = BASE64CODE.find(in[i+2]);
+        d = BASE64CODE.find(in[i+3]);
+        out.push_back(a << 2 | b >> 4);
+        out.push_back(b << 4 | c >> 2);
+        out.push_back(c << 6 | d);
+    }
+
+    return true;
+}
+
 
 void Text::ltrim(std::string& str, const char* args) {
     size_t startpos = str.find_first_not_of(args);
