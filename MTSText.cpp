@@ -69,24 +69,29 @@ std::string Text::float2String(double val, int precision) {
     return std::string(buff);
 }
 
-std::string Text::bin2hexString(const std::vector<uint8_t>& data, const char* delim, bool leadingZeros) {
+std::string Text::bin2hexString(const std::vector<uint8_t>& data, const char* delim, bool leadingZeros, bool bytePadding) {
     uint8_t data_arr[data.size()];
 
     for (int i = 0; i < data.size(); i++)
         data_arr[i] = data[i];
 
-    return bin2hexString(data_arr, data.size(), delim, leadingZeros);
+    return bin2hexString(data_arr, data.size(), delim, leadingZeros, bytePadding);
 }
 
-std::string Text::bin2hexString(const uint8_t* data, const uint32_t len, const char* delim, bool leadingZeros) {
+std::string Text::bin2hexString(const uint8_t* data, const uint32_t len, const char* delim, bool leadingZeros, bool bytePadding) {
     std::string str;
-    char buf[32];
     char lead[] = "0x";
+    char buf[5];
 
     for (uint32_t i = 0; i < len; i++) {
         if (leadingZeros)
             str.append(lead);
-        snprintf(buf, sizeof(buf), "%02x", data[i]);
+
+        if (bytePadding)
+            snprintf(buf, sizeof(buf), "%02x", data[i]);
+        else
+            snprintf(buf, sizeof(buf), "%x", data[i]);
+
         str.append(buf, strlen(buf));
         if (i < len - 1)
             str.append(delim);
