@@ -70,14 +70,17 @@ std::string Text::float2String(double val, int precision) {
 }
 
 std::string Text::bin2hexString(const std::vector<uint8_t>& data, const char* delim, bool leadingZeros, bool bytePadding) {
+    std::string ret;
     uint8_t *data_arr = new uint8_t[data.size()];
 
     for (size_t i = 0; i < data.size(); i++)
         data_arr[i] = data[i];
 
+    ret = bin2hexString(data_arr, data.size(), delim, leadingZeros, bytePadding);
+
     delete[] data_arr;
 
-    return bin2hexString(data_arr, data.size(), delim, leadingZeros, bytePadding);
+    return ret;
 }
 
 std::string Text::bin2hexString(const uint8_t* data, const uint32_t len, const char* delim, bool leadingZeros, bool bytePadding) {
