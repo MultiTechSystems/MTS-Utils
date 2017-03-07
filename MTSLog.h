@@ -65,7 +65,7 @@ public:
 
     /** Print log message.
      */
-    static void __attribute__((weak)) printMessage(int level, const char* format, ...);
+    static void printMessage(int level, const char* format, ...);
 
     /** Determine if the given level is currently printable.
      */
